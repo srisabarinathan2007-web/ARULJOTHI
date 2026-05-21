@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-dashboard-sidebar: #0a1128;
+  --color-dashboard-active: #2563eb;
+  --color-dashboard-bg: #f8fafc;
+  
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-300: #a5b4fc;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-brand-900: #312e81;
+
+  /* Modern Blue/Pink Theme */
+  --color-modern-blue: #3b82f6;
+  --color-modern-accent: #fbc4cc;
+  --color-modern-bg: #f8fafc;
+  --color-modern-card: #ffffff;
+  --color-modern-text: #0f172a;
+  --color-modern-muted: #64748b;
+  --color-modern-border: #e2e8f0;
+}
+
+@layer base {
+  body {
+    @apply bg-modern-bg text-modern-text antialiased relative;
+  }
+  
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(135deg, #fbc4cc 0%, #3b82f6 100%);
+    opacity: 0.03;
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  .modern-card {
+    @apply bg-white/80 backdrop-blur-md rounded-3xl border border-modern-border shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300;
+  }
+  .modern-sidebar {
+    @apply bg-white/80 backdrop-blur-md border-r border-modern-border shadow-[4px_0_24px_rgba(0,0,0,0.02)];
+  }
+  .modern-input {
+    @apply bg-slate-50 border border-modern-border rounded-2xl px-6 py-4 focus:ring-4 focus:ring-modern-blue/10 focus:border-modern-blue outline-none transition-all;
+  }
+  .modern-button-primary {
+    @apply bg-modern-blue text-modern-text rounded-2xl px-8 py-4 font-bold hover:bg-modern-blue/90 active:scale-95 transition-all shadow-lg shadow-modern-blue/20;
+  }
+  .modern-button-secondary {
+    @apply bg-white border border-modern-border text-modern-text rounded-2xl px-8 py-4 font-bold hover:bg-slate-50 active:scale-95 transition-all;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .inline-edit-input {
+    @apply w-full h-full bg-transparent outline-none px-1 py-1 font-medium text-slate-800 placeholder:text-slate-200 border-none transition-none;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  /* Reset all transforms, animations, and opacity which break printing */
+  * {
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .no-print, 
+  .no-print *,
+  header:not(.print-only), 
+  footer:not(.print-only), 
+  nav:not(.print-only), 
+  aside:not(.print-only),
+  button, 
+  input, 
+  select, 
+  textarea,
+  .fixed:not(.print-only),
+  .sticky:not(.print-only) {
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  html, body, #root {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    display: block !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Ensure the main container and its parents are visible */
+  main, .flex-1 {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+    position: static !important;
+  }
+
+  /* Reset overflow and max-height for printing */
+  .overflow-hidden, .overflow-x-auto, .overflow-y-auto, [class*="max-h-"] {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  .print-container, 
+  .print-only-header {
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+    position: relative !important;
+  }
+
+  /* Specific table fixes for print */
+  table {
+    display: table !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border: 1px solid black !important;
+    table-layout: auto !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  tr {
+    display: table-row !important;
+    page-break-inside: avoid !important;
+    height: 5mm !important; /* Reduced to fit 30 per page */
+  }
+
+  /* Force page break every 30 rows */
+  tbody tr:nth-child(30n) {
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+
+  th, td {
+    display: table-cell !important;
+    border: 1px solid black !important;
+    padding: 1px 4px !important;
+    color: black !important;
+    font-size: 8pt !important;
+    vertical-align: middle !important;
+    line-height: 1 !important;
+  }
+
+  th, .bg-[#f0f0f0] {
+    background-color: #f0f0f0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    font-weight: bold !important;
+  }
+
+  /* Force visibility of text */
+  .text-slate-900, .text-slate-800, .text-slate-700, .text-slate-600, .text-slate-500, .text-slate-400,
+  .text-[#666666], .text-[#1a1a1a], .text-modern-text, .text-modern-blue {
+    color: black !important;
+  }
+
+  .print-black-box {
+    background-color: black !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .print-black-box input {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+  }
+
+  .print-accent {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    display: block !important;
+    visibility: visible !important;
+    content-visibility: visible !important;
+  }
+
+  /* Force background colors for these specifics */
+  .bg-\[\#0097a7\], .bg-\[\#f48fb1\] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Remove background colors from badges etc for better printing */
+  .bg-slate-50, .bg-slate-100, .bg-brand-50 {
+    background: transparent !important;
+    border: 1px solid #ddd !important;
+  }
+}

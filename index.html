@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arul Jothi auto consulting</title>
+    <script>
+      // Service worker cleanup logic removed to prevent SecurityErrors in restricted environments
+    </script>
+  </head>
+  <body>
+    <div id="root">
+      <div id="loading-screen" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fff5f6; color: #666;">
+        <div style="width: 48px; height: 48px; border: 4px solid #fce4e8; border-top-color: #FFB6C1; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        <p style="margin-top: 24px; font-size: 16px; font-weight: 600; color: #1a1a1a; letter-spacing: -0.01em;">Arul Jothi Terminal</p>
+        <p style="margin-top: 8px; font-size: 12px; font-weight: 500; opacity: 0.6;">Initializing components...</p>
+      </div>
+    </div>
+    <script>
+      (function() {
+        var root = document.getElementById('root');
+        
+        function isBenignError(error) {
+          if (!error) return false;
+          const msg = String(error.message || error.reason || error).toLowerCase();
+          const name = String(error.name || '').toLowerCase();
+          
+          return (
+            msg.includes('websocket') || 
+            msg.includes('hmr') || 
+            msg.includes('vite') ||
+            msg.includes('extension') ||
+            msg.includes('serviceworker') ||
+            msg.includes('service worker') ||
+            msg.includes('script error') ||
+            (name === 'securityerror' && (msg.includes('serviceworker') || msg.includes('service worker')))
+          );
+        }
+
+        function showError(title, msg) {
+          const loadingScreen = document.getElementById('loading-screen');
+          if (!loadingScreen) return;
+
+          if (isBenignError(msg)) {
+            console.warn('Silent Boot Warning:', msg);
+            return;
+          }
+
+          root.innerHTML = `
+            <div style="padding: 40px; color: #e11d48; font-family: -apple-system, sans-serif; background: #fff; max-width: 600px; margin: 40px auto; border-radius: 24px; box-shadow: 0 20px 50px rgba(225,29,72,0.1); border: 1px solid #ffe4e6;">
+              <h1 style="font-size: 24px; margin: 0 0 16px 0; font-weight: 800; letter-spacing: -0.02em;">Terminal Access Error</h1>
+              <p style="font-size: 16px; line-height: 1.6; margin: 0 0 24px 0; color: #4b5563;">${title}</p>
+              <pre style="font-size: 11px; background: #f8fafc; padding: 20px; border-radius: 12px; overflow: auto; border: 1px solid #e2e8f0; color: #1e293b; max-height: 200px;">${msg}</pre>
+              <div style="display: flex; gap: 12px; margin-top: 24px;">
+                <button onclick="window.location.reload()" style="flex: 1; padding: 16px; background: #e11d48; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 700;">Retry Sync</button>
+                <button onclick="document.getElementById('loading-screen')?.remove()" style="flex: 1; padding: 16px; background: #f1f5f9; color: #475569; border: none; border-radius: 12px; cursor: pointer; font-weight: 700;">Ignore & Load</button>
+              </div>
+            </div>
+          `;
+        }
+
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+          showError('Boot Script Error:', msg + '\n' + (error ? error.stack : ''));
+          return false;
+        };
+
+        window.addEventListener('unhandledrejection', function(event) {
+          showError('Component Rejection:', event.reason);
+        });
+
+        setTimeout(function() {
+          var screen = document.getElementById('loading-screen');
+          if (screen) {
+            var hint = document.createElement('p');
+            hint.style.cssText = 'margin-top: 24px; color: #e11d48; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em;';
+            hint.innerText = 'Sync is taking longer than expected...';
+            screen.appendChild(hint);
+            
+            var forceBtn = document.createElement('button');
+            forceBtn.style.cssText = 'margin-top: 16px; padding: 8px 16px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 10px; font-weight: 700; cursor: pointer; color: #64748b;';
+            forceBtn.innerText = 'Force Manual Load';
+            forceBtn.onclick = function() { screen.remove(); };
+            screen.appendChild(forceBtn);
+          }
+        }, 8000);
+      })();
+    </script>
+    <style>
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
