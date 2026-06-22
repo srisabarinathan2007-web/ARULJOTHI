@@ -4,7 +4,7 @@ import {
   CheckCircle2, RefreshCw, Scan, RotateCw, Wand2, Scissors,
   ChevronRight, Bell, ChevronDown, Eye, FileText, Menu
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Cropper from 'react-easy-crop';
 import { format } from 'date-fns';
 

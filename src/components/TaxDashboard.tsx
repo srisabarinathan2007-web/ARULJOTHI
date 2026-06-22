@@ -6,7 +6,7 @@ import {
   History, User, Headphones, Zap, Bell, MoreVertical,
   FileSpreadsheet, CloudUpload, Calendar, Phone, Menu
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { api } from '../services/api';
 import { TaxRecord, Vehicle } from '../types';
 import { format, parseISO } from 'date-fns';

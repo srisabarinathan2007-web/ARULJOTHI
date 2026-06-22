@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Save, Calculator, User, Hash, Calendar, Loader2, IndianRupee, FileText, Car, CheckCircle2, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { api } from '../services/api';
 import { TaxRecord } from '../types';
 

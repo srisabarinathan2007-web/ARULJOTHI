@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Phone, User, Calendar, Shield, Share2, Printer, MapPin, Hash, CheckCircle2, Trash2, Car, MessageSquare, FileText } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { Vehicle } from '../types';
 import { api } from '../services/api';
 import ExpiryBadge from './ExpiryBadge';
@@ -99,6 +99,16 @@ Owner: ${vehicle.ownerName}`;
                     <h3 className="text-[11px] font-black uppercase tracking-widest text-[#1e293b]">System Management</h3>
                  </div>
                  <div className="grid grid-cols-2 gap-4">
+                    <button 
+                      onClick={() => {
+                        const baseUrl = window.location.origin;
+                        window.open(`${baseUrl}?openVehicleId=${vehicle.id}`, '_blank');
+                      }}
+                      className="p-6 bg-white border border-slate-100 rounded-3xl flex flex-col items-center gap-3 hover:border-blue-400 transition-all group active:scale-95 shadow-sm"
+                    >
+                       <MapPin className="w-6 h-6 text-slate-300 group-hover:text-blue-600 transition-colors" />
+                       <span className="text-[10px] font-black uppercase tracking-widest text-slate-800">New Tab</span>
+                    </button>
                     <button 
                       onClick={() => onEdit(vehicle)}
                       className="p-6 bg-white border border-slate-100 rounded-3xl flex flex-col items-center gap-3 hover:border-blue-400 transition-all group active:scale-95 shadow-sm"

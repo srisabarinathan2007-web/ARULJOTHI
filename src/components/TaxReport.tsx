@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { FileText, Printer, Download, Plus, Trash2, FileSpreadsheet } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import * as XLSX from 'xlsx';
 import Logo from './Logo';
 import { jsPDF } from 'jspdf';

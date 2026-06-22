@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Key, Car, ArrowRight, User, Loader2, Truck, ShieldCheck, Headphones, Zap, CheckCircle2, Shield, FileText, History } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Logo from './Logo';
 
 interface LoginProps {
@@ -16,6 +16,7 @@ export default function Login({ onLogin }: LoginProps) {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Login attempt: identifier=", identifier, "isAdminMode=", isAdminMode);
     setError('');
     setLoading(true);
 
@@ -24,18 +25,23 @@ export default function Login({ onLogin }: LoginProps) {
     try {
       if (isAdminMode) {
         if (identifier === 'ARULJOTHIAUTOCONSULTING' && password === 'Aruljothi@2009') {
+          console.log("Admin login success");
           onLogin(identifier, true);
         } else {
+          console.log("Admin login fail");
           setError('Invalid Administrative Credentials');
         }
       } else {
         if (identifier.length >= 4) {
+          console.log("User login success");
           onLogin(identifier, false);
         } else {
+          console.log("User login fail");
           setError('Please enter a valid Plate Number');
         }
       }
     } catch (err: any) {
+      console.error("Login Error:", err);
       setError(err.message || 'Authentication Service Unavailable');
     } finally {
       setLoading(false);
@@ -192,7 +198,7 @@ export default function Login({ onLogin }: LoginProps) {
       </div>
 
       {/* RIGHT SIDE: LOGIN FORM */}
-      <div className="relative flex-1 bg-white flex flex-col z-20 h-full overflow-hidden shrink-0">
+      <div className="relative flex-1 bg-white flex flex-col z-20 h-full overflow-y-auto shrink-0">
         {/* Blue Side Border Accent */}
         <div className="absolute left-0 top-0 bottom-0 w-2 bg-blue-600 lg:block hidden z-40" />
 

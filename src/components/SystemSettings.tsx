@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Shield, Bell, Save, MessageSquare, Key, Clock, Settings, ArrowRight, Upload, Image as ImageIcon } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { api } from '../services/api';
 
 interface SystemSettingsProps {

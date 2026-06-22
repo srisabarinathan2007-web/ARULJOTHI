@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Filter, Plus, Calendar, AlertCircle, CheckCircle2, ChevronRight, FileDown, MoreVertical, MessageSquare, Download, Printer, FileSpreadsheet, Car, Shield, FileText, Phone } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { differenceInDays, isBefore, format, parseISO, startOfMonth, endOfMonth, isWithinInterval, addDays, isSameDay, startOfDay } from 'date-fns';
 import * as XLSX from 'xlsx';
 import { Vehicle } from '../types';

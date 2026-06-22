@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '../lib/utils';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 
 export default function Logo({ className }: { className?: string }) {
   const [hasError, setHasError] = React.useState(false);

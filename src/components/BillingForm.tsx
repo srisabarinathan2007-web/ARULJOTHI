@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Save, Receipt, User, Phone, Calendar, Loader2, IndianRupee, FileText, CreditCard, Car, Calculator } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { api } from '../services/api';
 import { BillingRecord } from '../types';
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Car, Shield, AlertCircle, Phone, LogOut, ChevronRight, FileCheck, Globe, Printer, MapPin } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { api } from '../services/api';
 import { Vehicle } from '../types';
 import ExpiryBadge from './ExpiryBadge';

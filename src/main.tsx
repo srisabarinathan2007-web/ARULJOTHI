@@ -46,15 +46,17 @@ const container = document.getElementById('root');
 if (!container) {
   console.error("FATAL: Root container not found!");
 } else {
+  console.log("Main mounting...");
+  console.log("Main mounting...");
   try {
     const root = createRoot(container);
+    console.log("Root created, rendering App...");
     root.render(
-      <StrictMode>
-        <ErrorBoundary>
-          <App />
-        </ErrorBoundary>
-      </StrictMode>
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     );
+    console.log("App rendered.");
   } catch (err) {
     console.error("Failed to initialize React:", err);
   }
